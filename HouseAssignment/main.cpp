@@ -329,3 +329,36 @@ void moon(float cx, float cy, float r, int num_segments)
     // glColor3ub(R, G, B);
     glEnd();
 }
+void doorKnob(float cx, float cy, float r, int num_segments)
+{
+    float theta = 3.1415926 * 2 / float(num_segments);
+    float tangetial_factor = tanf(theta);
+
+    float radial_factor = cosf(theta);
+
+    float x = r;
+
+    float y = 0;
+
+    glBegin(GL_LINE_LOOP);
+    for (int ii = 0; ii < num_segments; ii++)
+    {
+        glVertex2f(x + cx, y + cy);
+
+
+
+        float tx = -y;
+        float ty = x;
+
+
+
+        x += tx * tangetial_factor;
+        y += ty * tangetial_factor;
+
+
+
+        x *= radial_factor;
+        y *= radial_factor;
+    }
+    glEnd();
+}
