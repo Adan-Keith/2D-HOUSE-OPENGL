@@ -149,7 +149,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, left_window_horizontal); 
+        glVertexPointer(3, GL_FLOAT, 0, left_window_horizontal);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
@@ -161,7 +161,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, right_window_vertical); 
+        glVertexPointer(3, GL_FLOAT, 0, right_window_vertical);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
@@ -173,14 +173,17 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, right_window_horizontal); 
+        glVertexPointer(3, GL_FLOAT, 0, right_window_horizontal);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        drawCircle(320, 300, 160, 360);
+        //drawCircle(320, 300, 160, 360);
+        //drawCircle(GLAutodrawble drawble) { GL gl = drawble.getGL();  gl.glTranslatef(0.0f, 0.0f, -7.0f);  gl.glBeginf(GL_LINE_LOOP);  gl.glColorf(0.0f, 0.0f, 0.0);  final dobule  PI = 3.141592654;  double angle = 0.0;  int points = 100;  for (int i = 0; i < points; i++) { angle = 2 * PI * i / points;    gl.glVertexf((float)Math.cos(angle), (float)Math.sin(angle)); }  gl.glScalef(1.0f, 1.0f, 0.0f);  gl.glEnd(); }
+
+
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
