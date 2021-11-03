@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include<math.h>
 //#include <GL/glut.h>
 
 #define SCREEN_WIDTH 640
@@ -48,53 +49,59 @@ int main(void)
 
     GLfloat door[] =
     {
-        280, 120, 0,
-        280, 220, 0, // X, Y , Z Format
-        360, 220, 0,// Follows on from above point (1) in CLOCK-WISE MANNER
-        360, 120, 0,
+        250, 120, 0,//A(door)
+        250, 220, 0, //B(door)
+        310, 220, 0,//C(door) 
+        310, 120, 0,//D(door)
     };
 
-    GLfloat window1[] =
+    GLfloat left_window[] =//Left Window Pane
     {
-        220, 180, 0,
-        220, 220, 0, // X, Y , Z Format
-        260, 220, 0,// Follows on from above point (1) in CLOCK-WISE MANNER
-        260, 180, 0,
+        120, 180, 0,//A
+        120, 220, 0,//B
+        160, 220, 0,//C
+        160, 180, 0,//D
     };
 
-    GLfloat window2[] =
+    GLfloat right_window[] =//Right Window Pane
     {
-        380, 180, 0,
-        380, 220, 0, // X, Y , Z Format
-        420, 220, 0,// Follows on from above point (1) in CLOCK-WISE MANNER
-        420, 180, 0,
+        380, 180, 0,//A
+        380, 220, 0,//B
+        420, 220, 0,//C
+        420, 180, 0,//D
     };
 
-    GLfloat line1_left[] =
+    //Vertical window frame For Window Pane on the Left
+    GLfloat left_window_vertical[] =
     {
-        240, 180, 0,
-        240, 220, 0
+        140, 180, 0,
+        140, 220, 0
     };
 
-    GLfloat line2_left[] =
+    //Horizonatl Window frame For Window Pane on the Left
+    GLfloat left_window_horizontal[] =
     {
-        220, 200, 0,
-        260, 200, 0
+        120, 200, 0,
+        160, 200, 0
     };
 
-    GLfloat line1_right[] =
+    //Vertical Window frame For Window Pane on the Right
+
+    GLfloat right_window_vertical[] =
     {
         400, 180, 0,
         400, 220, 0
     };
 
-    GLfloat line2_right[] =
+    //Horizontal Window frame For Window Pane on the Right
+
+    GLfloat right_window_horizontal[] =
     {
         380, 200, 0,
         420, 200, 0
     };
 
-    //...............................................................................................................
+    //.................................................................................................................................................................................
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // polygon drawing mode (GL_POINT, GL_LINE, GL_FILL)
 
 
@@ -108,6 +115,72 @@ int main(void)
         glVertexPointer(3, GL_FLOAT, 0, polygonVertices);
         glDrawArrays(GL_POLYGON, 0, 8);
         glDisableClientState(GL_VERTEX_ARRAY);
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, door);
+        glDrawArrays(GL_POLYGON, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, left_window);
+        glDrawArrays(GL_POLYGON, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, right_window);
+        glDrawArrays(GL_POLYGON, 0, 4);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+
+        glEnable(GL_LINE_SMOOTH);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, left_window_vertical);
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        glEnable(GL_LINE_SMOOTH);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, left_window_horizontal); 
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        glEnable(GL_LINE_SMOOTH);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, right_window_vertical); 
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        glEnable(GL_LINE_SMOOTH);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, right_window_horizontal); 
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        drawCircle(320, 300, 160, 360);
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
