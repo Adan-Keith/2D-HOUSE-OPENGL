@@ -288,3 +288,44 @@ void moon2(float cx, float cy, float r, int num_segments)
     }
     glEnd();
 }
+void moon(float cx, float cy, float r, int num_segments)
+{
+    int R = 255;
+    int G = 201;
+    int B = 0;
+
+
+
+    float theta = 3.14159265358979323846264338327950288 * 2 / float(num_segments);
+    float tangetial_factor = tanf(theta);
+
+    float radial_factor = cosf(theta);
+
+    float x = r;
+
+    float y = 0;
+
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)
+    {
+        glVertex2f(x + cx, y + cy);
+
+
+
+        float tx = -y;
+        float ty = x;
+
+
+
+        x += tx * tangetial_factor;
+        y += ty * tangetial_factor;
+
+
+
+        x *= radial_factor;
+        y *= radial_factor;
+
+    }
+    // glColor3ub(R, G, B);
+    glEnd();
+}
