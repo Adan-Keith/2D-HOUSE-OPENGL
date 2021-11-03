@@ -1,186 +1,237 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include<math.h>
-//#include <GL/glut.h>
+#include <math.h>
+#include<GL/gl.h>
+
+#include<stdlib.h>
 
 #define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_HEIGHT 640
 
+//void drawCircle(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
+//void doorKnob(float cx, float cy, float r, int num_segments);
+//void drawCrescentLine(float step, float scale, float fullness);
+//void drawSemiCircle(float cx, float cy, float r, int num_segments);
+//void moon(float cx, float cy, float r, int num_segments);
+//oid moon2(float cx, float cy, float r, int num_segments);
 int main(void)
 {
     GLFWwindow* window;
 
-    // Initialize GLFW library
+    // Initialize the library
     if (!glfwInit())
     {
         return -1;
     }
 
-    // Create a window
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "5 SIDE SHAPED POLYGON", NULL, NULL);
+    // Create a windowed mode window and its OpenGL context
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mosque", NULL, NULL); // "Polygon" is title of window
 
     if (!window)
     {
         glfwTerminate();
+        return -1;
     }
 
-    // Make the window's context current
+    
     glfwMakeContextCurrent(window);
 
-    glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT); // specifies the part of the window to which OpenGL will draw (in pixels), convert from normalised to pixels
-    glMatrixMode(GL_PROJECTION); // projection matrix defines the properties of the camera that views the objects in the world coordinate frame. Here you typically set the zoom factor, aspect ratio and the near and far clipping planes
-    glLoadIdentity(); // replace the current matrix with the identity matrix and starts us a fresh because matrix transforms such as glOrpho and glRotate cumulate, basically puts us at (0, 0, 0)
-    glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1); // essentially set coordinate system
-    glMatrixMode(GL_MODELVIEW); // (default matrix mode) modelview matrix defines how your objects are transformed (meaning translation, rotation and scaling) in your world
-    glLoadIdentity(); // same as above comment
+    glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT); 
+    glMatrixMode(GL_PROJECTION); 
+    glLoadIdentity(); 
+    glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1); 
+    glMatrixMode(GL_MODELVIEW); 
+    glLoadIdentity(); 
 
-    GLfloat polygonVertices[] =
+    GLfloat house[] =
     {
-        100, 100, 0,//A
-        100, 300, 0,//B
-        40, 300, 0,//C
-        40, 320, 0,//D
-        500, 320, 0,//E
-        500, 300, 0,//F
-        440, 300, 0,//G
-        440, 100, 0,//H
-
+        180, 240, 0, // 1 
+        140, 240, 0, // 2
+        140, 300, 0, // 3
+        500, 300, 0,// 4
+        500, 240, 0,// 5
+        460, 240, 0,// 6
+        460, 120, 0,// 7
+        180, 120, 0,// 8
     };
 
     GLfloat door[] =
     {
-        250, 120, 0,//A(door)
-        250, 220, 0, //B(door)
-        310, 220, 0,//C(door) 
-        310, 120, 0,//D(door)
+        280, 120, 0,
+        280, 220, 0,
+        360, 220, 0,
+        360, 120, 0,
     };
 
-    GLfloat left_window[] =//Left Window Pane
+    GLfloat windowLeft[] =
     {
-        120, 180, 0,//A
-        120, 220, 0,//B
-        160, 220, 0,//C
-        160, 180, 0,//D
+        220, 180, 0,
+        220, 220, 0,
+        260, 220, 0,
+        260, 180, 0,
     };
 
-    GLfloat right_window[] =//Right Window Pane
+    GLfloat windowRight[] =
     {
-        380, 180, 0,//A
-        380, 220, 0,//B
-        420, 220, 0,//C
-        420, 180, 0,//D
+        380, 180, 0,
+        380, 220, 0,
+        420, 220, 0,
+        420, 180, 0,
     };
 
-    //Vertical window frame For Window Pane on the Left
-    GLfloat left_window_vertical[] =
+    GLfloat line1_left[] =
     {
-        140, 180, 0,
-        140, 220, 0
+        240, 180, 0,
+        240, 220, 0
     };
 
-    //Horizonatl Window frame For Window Pane on the Left
-    GLfloat left_window_horizontal[] =
+    GLfloat line2_left[] =
     {
-        120, 200, 0,
-        160, 200, 0
+        220, 200, 0,
+        260, 200, 0
     };
 
-    //Vertical Window frame For Window Pane on the Right
-
-    GLfloat right_window_vertical[] =
+    GLfloat line1_right[] =
     {
         400, 180, 0,
         400, 220, 0
     };
 
-    //Horizontal Window frame For Window Pane on the Right
-
-    GLfloat right_window_horizontal[] =
+    GLfloat line2_right[] =
     {
         380, 200, 0,
         420, 200, 0
     };
 
-    //.................................................................................................................................................................................
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // polygon drawing mode (GL_POINT, GL_LINE, GL_FILL)
+    
 
 
-    // Loop until the user closes the window
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+
+    GLfloat colour [] = {
+        255, 0, 0,
+        0, 201, 0,
+        0, 0, 0
+
+    };
+    
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // render OpenGL here
+        
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, polygonVertices);
-        glDrawArrays(GL_POLYGON, 0, 8);
+        glVertexPointer(3, GL_FLOAT, 0, house);
+        glDrawArrays(GL_POLYGON, 0, 8); 
         glDisableClientState(GL_VERTEX_ARRAY);
 
+        
+       // glEnableClientState(GL_VERTEX_ARRAY);
+        //glVertexPointer(3, GL_FLOAT, 0, moonVertices);
+        //glDrawArrays(GL_POLYGON, 0, 3); 
+        //glDisableClientState(GL_VERTEX_ARRAY);
+
+        
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, door);
+       
+        glDrawArrays(GL_POLYGON, 0, 4);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, windowLeft);
         glDrawArrays(GL_POLYGON, 0, 4);
         glDisableClientState(GL_VERTEX_ARRAY);
 
+        
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, left_window);
-        glDrawArrays(GL_POLYGON, 0, 4);
+        glVertexPointer(3, GL_FLOAT, 0, windowRight);
+        
+        
+        glDrawArrays(GL_POLYGON, 0, 4);// Number of points in polygon
+        
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, right_window);
-        glDrawArrays(GL_POLYGON, 0, 4);
-        glDisableClientState(GL_VERTEX_ARRAY);
-
-
+        // Render OpenGL here
         glEnable(GL_LINE_SMOOTH);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glColorPointer(3, GL_FLOAT, 0, colour);
         glPushAttrib(GL_LINE_BIT);
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, left_window_vertical);
+        glVertexPointer(3, GL_FLOAT, 0, line1_left); // name of line
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_VERTEX_ARRAY);
+
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        // Render OpenGL here
+        glEnable(GL_LINE_SMOOTH);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glColorPointer(2, GL_FLOAT, 0, colour);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, line2_left); 
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        // Render OpenGL here
+        glEnable(GL_LINE_SMOOTH);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glColorPointer(2, GL_FLOAT, 0, colour);
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, line1_right); // name of line
+        glDrawArrays(GL_LINES, 0, 2);
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glPopAttrib();
+        glDisable(GL_LINE_STIPPLE);
+        glDisable(GL_LINE_SMOOTH);
+
+        // Render OpenGL here
+        glEnable(GL_LINE_SMOOTH);
+        // glEnable( GL_LINE_STIPPLE );
+        glPushAttrib(GL_LINE_BIT);
+        glLineWidth(3);
+        glLineStipple(1, 0x00FF);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glVertexPointer(3, GL_FLOAT, 0, line2_right); // name of line
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        glEnable(GL_LINE_SMOOTH);
-        glPushAttrib(GL_LINE_BIT);
-        glLineWidth(3);
-        glLineStipple(1, 0x00FF);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, left_window_horizontal); 
-        glDrawArrays(GL_LINES, 0, 2);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glPopAttrib();
-        glDisable(GL_LINE_STIPPLE);
-        glDisable(GL_LINE_SMOOTH);
+        
+        // render OpenGL here
+        //drawCircle(320, 300, 120, 250); // movement on x axis, movement on y axis , size, 
+        //doorKnob(350, 170, 5, 250);
+        //moon(630,460,60,1000);
+        //moon2(650, 460, 60, 100);
 
-        glEnable(GL_LINE_SMOOTH);
-        glPushAttrib(GL_LINE_BIT);
-        glLineWidth(3);
-        glLineStipple(1, 0x00FF);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, right_window_vertical); 
-        glDrawArrays(GL_LINES, 0, 2);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glPopAttrib();
-        glDisable(GL_LINE_STIPPLE);
-        glDisable(GL_LINE_SMOOTH);
+        //draw crescentLine
+       // drawCrescentLine(100, 100, 1,0,0);
+        //drawCrescentTriStrip(320,300,120);
 
-        glEnable(GL_LINE_SMOOTH);
-        glPushAttrib(GL_LINE_BIT);
-        glLineWidth(3);
-        glLineStipple(1, 0x00FF);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, right_window_horizontal); 
-        glDrawArrays(GL_LINES, 0, 2);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glPopAttrib();
-        glDisable(GL_LINE_STIPPLE);
-        glDisable(GL_LINE_SMOOTH);
-
-        drawCircle(320, 300, 160, 360);
+      // drawCrescentLine(100,200,1);
+        //600, 300, 0,// 4
+        //480, 400, 0,// 5
+            //520, 310, 0
 
         // Swap front and back buffers
         glfwSwapBuffers(window);
@@ -192,4 +243,5 @@ int main(void)
     glfwTerminate();
 
     return 0;
+
 }
