@@ -362,3 +362,37 @@ void doorKnob(float cx, float cy, float r, int num_segments)
     }
     glEnd();
 }
+
+void drawCircle(float cx, float cy, float r, int num_segments)
+{
+    float theta = 3.1415926 / float(num_segments);
+    float tangetial_factor = tanf(theta);//calculate the tangential factor 
+
+    float radial_factor = cosf(theta);//calculate the radial factor =
+
+    float x = r;//we start at angle = 0 
+
+    float y = 0;
+
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)
+    {
+        glVertex2f(x + cx, y + cy);//output vertex 
+
+
+
+        float tx = -y;
+        float ty = x;
+
+
+
+        x += tx * tangetial_factor;
+        y += ty * tangetial_factor;
+
+
+
+        x *= radial_factor;
+        y *= radial_factor;
+    }
+    glEnd();
+}
