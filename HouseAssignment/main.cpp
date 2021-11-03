@@ -1,19 +1,18 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <math.h>
-#include<GL/gl.h>
 
 #include<stdlib.h>
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 640
 
-//void drawCircle(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
-//void doorKnob(float cx, float cy, float r, int num_segments);
-//void drawCrescentLine(float step, float scale, float fullness);
-//void drawSemiCircle(float cx, float cy, float r, int num_segments);
-//void moon(float cx, float cy, float r, int num_segments);
-//oid moon2(float cx, float cy, float r, int num_segments);
+void drawCircle(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
+void doorKnob(float cx, float cy, float r, int num_segments);
+
+
+void moon(float cx, float cy, float r, int num_segments);
+void moon2(float cx, float cy, float r, int num_segments);
 int main(void)
 {
     GLFWwindow* window;
@@ -33,15 +32,15 @@ int main(void)
         return -1;
     }
 
-    
+
     glfwMakeContextCurrent(window);
 
-    glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT); 
-    glMatrixMode(GL_PROJECTION); 
-    glLoadIdentity(); 
-    glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1); 
-    glMatrixMode(GL_MODELVIEW); 
-    glLoadIdentity(); 
+    glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 0, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
     GLfloat house[] =
     {
@@ -103,55 +102,52 @@ int main(void)
         420, 200, 0
     };
 
-    
 
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
 
-    GLfloat colour [] = {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    GLfloat colour[] = {
         255, 0, 0,
         0, 201, 0,
         0, 0, 0
 
     };
-    
+
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        
+
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, house);
-        glDrawArrays(GL_POLYGON, 0, 8); 
+        glDrawArrays(GL_POLYGON, 0, 8);
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        
-       // glEnableClientState(GL_VERTEX_ARRAY);
-        //glVertexPointer(3, GL_FLOAT, 0, moonVertices);
-        //glDrawArrays(GL_POLYGON, 0, 3); 
-        //glDisableClientState(GL_VERTEX_ARRAY);
 
-        
+
+
+
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, door);
-       
+
         glDrawArrays(GL_POLYGON, 0, 4);
         glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        
+
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, windowLeft);
         glDrawArrays(GL_POLYGON, 0, 4);
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        
+
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, GL_FLOAT, 0, windowRight);
-        
-        
+
+
         glDrawArrays(GL_POLYGON, 0, 4);// Number of points in polygon
-        
+
         glDisableClientState(GL_VERTEX_ARRAY);
 
         // Render OpenGL here
@@ -179,7 +175,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-
+        glVertexPointer(3, GL_FLOAT, 0, line2_left);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
@@ -195,7 +191,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-
+        glVertexPointer(3, GL_FLOAT, 0, line1_right); // name of line
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
@@ -210,14 +206,21 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-
         glVertexPointer(3, GL_FLOAT, 0, line2_right); // name of line
-
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
+
+
+        // render OpenGL here
+        drawCircle(320, 300, 120, 250); // movement on x axis, movement on y axis , size, 
+        doorKnob(350, 170, 5, 250);
+        moon(630, 460, 60, 1000);
+        moon2(650, 460, 60, 100);
+
+
 
 
 
@@ -232,4 +235,56 @@ int main(void)
 
     return 0;
 
+}
+
+
+//GLfloat doublePi = 2.0f * 3.14159265358979323846264338327950288;
+void drawCrescentLine(float step, float scale, float fullness) {
+    float angle = 0.0f;
+    while (angle < 3.14159265358979323846264338327950288) {
+        glVertex2f(scale * sinf(angle), scale * cosf(angle));
+        angle += step;
+    }
+    while (angle < (2.0f * 3.14159265358979323846264338327950288)) {
+        glVertex2f(fullness * scale * sinf(angle), scale * cosf(angle));
+        angle += step;
+    }
+    glVertex2f(0.0f, scale);
+}
+
+void moon2(float cx, float cy, float r, int num_segments)
+
+{
+
+
+    float theta = 3.14159265358979323846264338327950288 * 2 / float(num_segments);
+    float tangetial_factor = tanf(theta);
+
+    float radial_factor = cosf(theta);
+
+    float x = r;
+
+    float y = 0;
+
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)
+    {
+        glVertex2f(x + cx, y + cy);
+
+
+
+        float tx = -y;
+        float ty = x;
+
+
+
+        x += tx * tangetial_factor;
+        y += ty * tangetial_factor;
+
+
+
+        x *= radial_factor;
+        y *= radial_factor;
+    }
+    glEnd();
 }
