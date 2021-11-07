@@ -7,7 +7,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 640
 
-void drawCircle(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
+void drawRoof(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
 void doorKnob(float cx, float cy, float r, int num_segments);
 
 
@@ -24,7 +24,7 @@ int main(void)
     }
 
     // Create a windowed mode window and its OpenGL context
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Mosque", NULL, NULL); // "Polygon" is title of window
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "5 Vertice Polygon", NULL, NULL); // "Polygon" is title of window
 
     if (!window)
     {
@@ -146,11 +146,11 @@ int main(void)
         glVertexPointer(3, GL_FLOAT, 0, windowRight);
 
 
-        glDrawArrays(GL_POLYGON, 0, 4);// Number of points in polygon
+        glDrawArrays(GL_POLYGON, 0, 4);
 
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        // Render OpenGL here
+        
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(3, GL_FLOAT, 0, colour);
@@ -158,7 +158,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line1_left); // name of line
+        glVertexPointer(3, GL_FLOAT, 0, line1_left); 
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
@@ -167,7 +167,7 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        // Render OpenGL here
+        
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(2, GL_FLOAT, 0, colour);
@@ -183,7 +183,7 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        // Render OpenGL here
+        
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(2, GL_FLOAT, 0, colour);
@@ -191,7 +191,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line1_right); // name of line
+        glVertexPointer(3, GL_FLOAT, 0, line1_right); 
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
@@ -199,14 +199,14 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        // Render OpenGL here
+        
         glEnable(GL_LINE_SMOOTH);
-        // glEnable( GL_LINE_STIPPLE );
+        
         glPushAttrib(GL_LINE_BIT);
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line2_right); // name of line
+        glVertexPointer(3, GL_FLOAT, 0, line2_right); 
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
@@ -214,42 +214,36 @@ int main(void)
         glDisable(GL_LINE_SMOOTH);
 
 
-        // render OpenGL here
-        drawCircle(320, 300, 120, 250); // movement on x axis, movement on y axis , size, 
+        
+        drawRoof(320, 300, 120, 250);  
         doorKnob(350, 170, 5, 250);
-        moon(630, 460, 60, 1000);
+        
+        
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(5);
+         // movement on x axis, movement on y axis , radius, sides
+        glColor3f(0.8f, 0.6f, 0.2f); //Golden
+        glLineWidth(5);
+        moon(630, 460, 60, 1000);// movement on x axis, movement on y axis , radius, sides 
+
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glColor3f(0.8f, 0.6f, 0.2f); //Golden
+
+        //glColor3f(0.0f, 0.0f, 0.0f); //black
         moon2(650, 460, 60, 100);
+        glColor3f(1.0f, 1.0f, 1.0f);
 
-
-
-
-
-        // Swap front and back buffers
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        
         glfwSwapBuffers(window);
-
-        // Poll for and process events
+        glColor3f(1.0f, 1.0f, 1.0f);
+    
         glfwPollEvents();
     }
-
     glfwTerminate();
-
     return 0;
-
-}
-
-
-//GLfloat doublePi = 2.0f * 3.14159265358979323846264338327950288;
-void drawCrescentLine(float step, float scale, float fullness) {
-    float angle = 0.0f;
-    while (angle < 3.14159265358979323846264338327950288) {
-        glVertex2f(scale * sinf(angle), scale * cosf(angle));
-        angle += step;
-    }
-    while (angle < (2.0f * 3.14159265358979323846264338327950288)) {
-        glVertex2f(fullness * scale * sinf(angle), scale * cosf(angle));
-        angle += step;
-    }
-    glVertex2f(0.0f, scale);
 }
 
 void moon2(float cx, float cy, float r, int num_segments)
@@ -344,6 +338,40 @@ void doorKnob(float cx, float cy, float r, int num_segments)
     for (int ii = 0; ii < num_segments; ii++)
     {
         glVertex2f(x + cx, y + cy);
+
+
+
+        float tx = -y;
+        float ty = x;
+
+
+
+        x += tx * tangetial_factor;
+        y += ty * tangetial_factor;
+
+
+
+        x *= radial_factor;
+        y *= radial_factor;
+    }
+    glEnd();
+}
+
+void drawRoof(float cx, float cy, float r, int num_segments)
+{
+    float theta = 3.1415926 / float(num_segments);
+    float tangetial_factor = tanf(theta);//calculate the tangential factor 
+
+    float radial_factor = cosf(theta);//calculate the radial factor =
+
+    float x = r;//we start at angle = 0 
+
+    float y = 0;
+
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < num_segments; i++)
+    {
+        glVertex2f(x + cx, y + cy);//output vertex 
 
 
 
