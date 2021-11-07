@@ -150,7 +150,7 @@ int main(void)
 
         glDisableClientState(GL_VERTEX_ARRAY);
 
-        
+
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(3, GL_FLOAT, 0, colour);
@@ -158,7 +158,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line1_left); 
+        glVertexPointer(3, GL_FLOAT, 0, line1_left);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_COLOR_ARRAY);
         glDisableClientState(GL_VERTEX_ARRAY);
@@ -167,7 +167,7 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        
+
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(2, GL_FLOAT, 0, colour);
@@ -183,7 +183,7 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        
+
         glEnable(GL_LINE_SMOOTH);
         glEnableClientState(GL_COLOR_ARRAY);
         glColorPointer(2, GL_FLOAT, 0, colour);
@@ -191,7 +191,7 @@ int main(void)
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line1_right); 
+        glVertexPointer(3, GL_FLOAT, 0, line1_right);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
@@ -199,14 +199,14 @@ int main(void)
         glDisable(GL_LINE_STIPPLE);
         glDisable(GL_LINE_SMOOTH);
 
-        
+
         glEnable(GL_LINE_SMOOTH);
-        
+
         glPushAttrib(GL_LINE_BIT);
         glLineWidth(3);
         glLineStipple(1, 0x00FF);
         glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, line2_right); 
+        glVertexPointer(3, GL_FLOAT, 0, line2_right);
         glDrawArrays(GL_LINES, 0, 2);
         glDisableClientState(GL_VERTEX_ARRAY);
         glPopAttrib();
@@ -214,15 +214,15 @@ int main(void)
         glDisable(GL_LINE_SMOOTH);
 
 
-        
-        drawRoof(320, 300, 120, 250);  
+
+        drawRoof(320, 300, 120, 250);
         doorKnob(350, 170, 5, 250);
-        
-        
+
+
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glLineWidth(5);
-         // movement on x axis, movement on y axis , radius, sides
+        // movement on x axis, movement on y axis , radius, sides
         glColor3f(0.8f, 0.6f, 0.2f); //Golden
         glLineWidth(5);
         moon(630, 460, 60, 1000);// movement on x axis, movement on y axis , radius, sides 
@@ -236,10 +236,10 @@ int main(void)
         glColor3f(1.0f, 1.0f, 1.0f);
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        
+
         glfwSwapBuffers(window);
         glColor3f(1.0f, 1.0f, 1.0f);
-    
+
         glfwPollEvents();
     }
     glfwTerminate();
