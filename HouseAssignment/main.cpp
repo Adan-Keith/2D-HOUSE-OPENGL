@@ -219,7 +219,6 @@ int main(void)
         doorKnob(350, 170, 5, 250);
 
 
-
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glLineWidth(5);
         // movement on x axis, movement on y axis , radius, sides
@@ -320,7 +319,7 @@ void moon(float cx, float cy, float r, int num_segments)
         y *= radial_factor;
 
     }
-    // glColor3ub(R, G, B);
+   
     glEnd();
 }
 void doorKnob(float cx, float cy, float r, int num_segments)
