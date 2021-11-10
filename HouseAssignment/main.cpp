@@ -216,7 +216,7 @@ int main(void)
 
 
         drawRoof(320, 300, 120, 250);
-        doorKnob(350, 170, 5, 250);
+        doorKnob(350, 170, 5, 250); 
 
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
