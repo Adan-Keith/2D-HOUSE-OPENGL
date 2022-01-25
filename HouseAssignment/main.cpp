@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <math.h>
-
+//#include <GL/glxew.h>
 #include<stdlib.h>
 
 #define SCREEN_WIDTH 640
@@ -9,8 +9,6 @@
 
 void drawRoof(GLfloat x, GLfloat y, GLfloat radius, GLint numberOfSides);
 void doorKnob(float cx, float cy, float r, int num_segments);
-
-
 void moon(float cx, float cy, float r, int num_segments);
 void moon2(float cx, float cy, float r, int num_segments);
 int main(void)
@@ -44,62 +42,62 @@ int main(void)
 
     GLfloat house[] =
     {
-        180, 240, 0,// 1 
-        140, 240, 0,// 2
-        140, 300, 0,// 3
-        500, 300, 0,// 4
-        500, 240, 0,// 5
-        460, 240, 0,// 6
-        460, 120, 0,// 7
-        180, 120, 0,// 8
+        180, 240, 0,// A 
+        140, 240, 0,// B
+        140, 300, 0,// C
+        500, 300, 0,// D
+        500, 240, 0,// E
+        460, 240, 0,// F
+        460, 120, 0,// G
+        180, 120, 0,// H
     };
 
     GLfloat door[] =
     {
-        280, 120, 0,
-        280, 220, 0,
-        360, 220, 0,
-        360, 120, 0,
+        280, 120, 0,// A
+        280, 220, 0,// B
+        360, 220, 0,// C
+        360, 120, 0,// D
     };
 
     GLfloat windowLeft[] =
     {
-        220, 180, 0,
-        220, 220, 0,
-        260, 220, 0,
-        260, 180, 0,
+        220, 180, 0,// A
+        220, 220, 0,// B
+        260, 220, 0,// C
+        260, 180, 0,// D
     };
 
     GLfloat windowRight[] =
     {
-        380, 180, 0,
-        380, 220, 0,
-        420, 220, 0,
-        420, 180, 0,
+        380, 180, 0,// A
+        380, 220, 0,// B
+        420, 220, 0,// C
+        420, 180, 0,// D
     };
 
     GLfloat line1_left[] =
     {
-        240, 180, 0,
-        240, 220, 0
+        240, 180, 0,// AB CD
+        240, 220, 0// 
     };
 
     GLfloat line2_left[] =
     {
-        220, 200, 0,
-        260, 200, 0
+        220, 200, 0,//
+        260, 200, 0//
     };
 
     GLfloat line1_right[] =
     {
-        400, 180, 0,
-        400, 220, 0
+        400, 180, 0,//
+        400, 220, 0//
     };
 
     GLfloat line2_right[] =
     {
-        380, 200, 0,
-        420, 200, 0
+        380, 200, 0,//
+        420, 200, 0//
     };
 
 
